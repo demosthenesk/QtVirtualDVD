@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>drive-optical-300px.png</file>
+        <file>exit.png</file>
+        <file>mono-dvd-mount-300px.png</file>
+        <file>mono-dvd-umount-300px.png</file>
+    </qresource>
+</RCC>
