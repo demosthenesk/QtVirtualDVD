@@ -27,10 +27,12 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::mountImage()
 {
+    //Get username
     QString name = qgetenv("USER");
     if (name.isEmpty())
         name = qgetenv("USERNAME");
 
+    //select image
     QFileDialog dialog(this,
                        "Mount Image File",
                        "/home/"+name,
@@ -41,6 +43,7 @@ void MainWindow::mountImage()
     if (dialog.exec())
         fileNames = dialog.selectedFiles();
 
+    //find fuseiso
     QString which = "/usr/bin/which";
     QStringList arguments_w;
 
@@ -49,11 +52,13 @@ void MainWindow::mountImage()
     QProcess *myProcessw = new QProcess(this);
     myProcessw->start(which, arguments_w);
 
+    //get output from QProcess
     myProcessw->waitForFinished(); // sets current thread to sleep and waits for pingProcess end
     QString output(myProcessw->readAllStandardOutput());
 
     output = output.left(output.length()-1);
 
+    //mount image
     QString program = output;
     QStringList arguments;
     arguments << "-p" << fileNames[0] << "/home/"+name+"/Desktop/QtVirtualDVD";
@@ -61,16 +66,19 @@ void MainWindow::mountImage()
     QProcess *myProcess = new QProcess(this);
     myProcess->start(program, arguments);
 
+    //avoid quit app
     this->show();
     this->hide();
 
 }
 void MainWindow::umountImage()
 {
+    //get username
     QString name = qgetenv("USER");
     if (name.isEmpty())
         name = qgetenv("USERNAME");
 
+    //find fusermount
     QString which = "/usr/bin/which";
     QStringList arguments_w;
 
@@ -79,11 +87,13 @@ void MainWindow::umountImage()
     QProcess *myProcessw = new QProcess(this);
     myProcessw->start(which, arguments_w);
 
+    //get output
     myProcessw->waitForFinished(); // sets current thread to sleep and waits for pingProcess end
     QString output(myProcessw->readAllStandardOutput());
 
     output = output.left(output.length()-1);
 
+    //umount image
     QString program = output;
     QStringList arguments;
     arguments << "-u" << "/home/"+name+"/Desktop/QtVirtualDVD";
