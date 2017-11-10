@@ -67,8 +67,8 @@ void MainWindow::mountImage()
     myProcess->start(program, arguments);
 
     //avoid quit app
-    this->show();
-    this->hide();
+//    this->show();
+//    this->hide();
 
 }
 void MainWindow::umountImage()
@@ -102,6 +102,11 @@ void MainWindow::umountImage()
     myProcess->start(program, arguments);
 }
 
+void MainWindow::exit(){
+    //exit application
+    qApp->exit();
+}
+
 void MainWindow::createTray(){
 
     //create tray
@@ -115,7 +120,7 @@ void MainWindow::createTray(){
 
     //setup quit
     closeAction = new QAction(QIcon("://exit.png"), "Quit", this);
-    connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+    connect(closeAction, SIGNAL(triggered()), this, SLOT(exit()));
     //setup mount
     mountAction = new QAction(QIcon("://mono-dvd-mount-300px.png"), "Mount Image", this);
     connect(mountAction, SIGNAL(triggered()), this, SLOT(mountImage()));

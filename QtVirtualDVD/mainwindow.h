@@ -23,6 +23,7 @@ private slots:
     void on_pushButton_clicked();
     void mountImage();
     void umountImage();
+    void exit();
 
 private:
     Ui::MainWindow *ui;
